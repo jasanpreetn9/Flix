@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-import { parseMovieCard,parsePagination } from '$lib/utils';
+import { parseMovieCard,parsePagination } from '$lib/parsers';
 export async function load({ params, url }) {
     const page = url.searchParams.get('page') || 1;
 	const { data } = await axios.get(`https://flixhq.pe/genre/${params.genre}?page=${page}`);
