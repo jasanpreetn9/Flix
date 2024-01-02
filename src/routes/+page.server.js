@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
-import { baseUrl, formatCard } from '$lib/utils';
+import { parseMovieCard } from '$lib/parsers';
 export async function load() {
 	const { data } = await axios.get(`https://flixhq.pe/home`);
 	const $ = cheerio.load(data);
@@ -43,11 +43,11 @@ export async function load() {
 	});
 
 	$('#trending-movies .flw-item').each((index, element) => {
-		result.trendingMovies.push(formatCard(element));
+		result.trendingMovies.push(parseMovieCard(element));
 	});
 
 	$('#trending-tv .flw-item').each((index, element) => {
-		result.trendingTv.push(formatCard(element));
+		result.trendingTv.push(parseMovieCard(element));
 	});
 
 	$("h2:contains('Latest Movies')")
@@ -56,7 +56,7 @@ export async function load() {
 		.parent()
 		.find('.film_list-wrap .flw-item')
 		.each((index, element) => {
-			result.latestMovies.push(formatCard(element));
+			result.latestMovies.push(parseMovieCard(element));
 		});
 	$("h2:contains('Latest TV Shows')")
 		.parent()
@@ -64,7 +64,7 @@ export async function load() {
 		.parent()
 		.find('.film_list-wrap .flw-item')
 		.each((index, element) => {
-			result.latestTv.push(formatCard(element));
+			result.latestTv.push(parseMovieCard(element));
 		});
 	$("h2:contains('Coming Soon')")
 		.parent()
@@ -72,7 +72,7 @@ export async function load() {
 		.parent()
 		.find('.film_list-wrap .flw-item')
 		.each((index, element) => {
-			result.comingSoon.push(formatCard(element));
+			result.comingSoon.push(parseMovieCard(element));
 		});
 
 	return result;

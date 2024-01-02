@@ -3,6 +3,7 @@
 :root {
     --primary: #79c142;
     --secondary: #565c67;
+    --tertiary: #020916
 }
 
 
@@ -15,7 +16,6 @@
 body {
     width: 100%;
     background: #020916;
-    position: relative;
     /* font-family: "Poppins", Arial; */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     color: white;

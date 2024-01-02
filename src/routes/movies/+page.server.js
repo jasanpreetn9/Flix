@@ -1,17 +1,15 @@
-import * as cheerio from 'cheerio';
 import axios from 'axios';
-import { myflixerUrl } from '$lib/utils';
+import * as cheerio from 'cheerio';
 import { parseMovieCard, parsePagination } from '$lib/parsers';
-
-export async function load({ params }) {
-	const { data } = await axios.get(
-		`${myflixerUrl}/search/${params.searchQuery.replace(/ /g, '-')}`
-	);
+export async function load({ params, url }) {
+	const page = url.searchParams.get('page') || 1;
+	const { data } = await axios.get(`https://flixhq.pe/movie?page=${page}`);
 	const $ = cheerio.load(data);
-	const searchResults = [];
+	const result = [];
 	const pagination = [];
+
 	$('.film_list-wrap .flw-item').each((index, element) => {
-		searchResults.push(parseMovieCard(element));
+		result.push(parseMovieCard(element));
 	});
 
 	$('.pagination:nth-child(1) li').each((index, element) => {
@@ -26,9 +24,9 @@ export async function load({ params }) {
 			})
 		);
 	});
+
 	return {
-		searchResults,
 		pagination: uniquePagination,
-		searchQuery: params.searchQuery
+		result
 	};
 }

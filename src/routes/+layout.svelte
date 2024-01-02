@@ -1,7 +1,7 @@
 <script>
 	import '$lib/global.css';
-	import { Icon, MagnifyingGlass, } from 'svelte-hero-icons';
-
+	import { Icon, MagnifyingGlass, Bars3 } from 'svelte-hero-icons';
+	import { genres } from '$lib/utils';
 </script>
 
 <nav>
@@ -9,17 +9,19 @@
 		<img src="https://myflixerz.to/images/group_1/theme_7/logo.png?v=0.1" alt="Icon" />
 	</a>
 	<ul>
-		<li><a href="/">Home</a></li>
-		<li><a href="/">Genre</a></li>
-		<li><a href="/">Country</a></li>
-		<li><a href="/">Movies</a></li>
-		<li><a href="/">TV Shows</a></li>
-		<li><a href="/">Top IMDB</a></li>
+		<li><a class="nav-item" href="/">Home</a></li>
+		<li><p class="genre nav-item">Genre</p></li>
+		<li><a class="nav-item" href="/">Country</a></li>
+		<li><a class="nav-item" href="/movies">Movies</a></li>
+		<li><a class="nav-item" href="/tv-shows">TV Shows</a></li>
+		<li><a class="nav-item" href="/">Top IMDB</a></li>
 	</ul>
 	<div class="right-container">
-		<form action="">
-			<Icon src={MagnifyingGlass} size="22"/>
-			<input type="text" class="search" placeholder="Search" />
+		<form action="/search" method="POST" class="navbar-search-container">
+			<button type="submit">
+				<Icon src={MagnifyingGlass} size="22" color="white" />
+			</button>
+			<input type="text" name="search" class="search" placeholder="Search" />
 		</form>
 		<a href="/login" class="login-btn">Login</a>
 	</div>
@@ -31,12 +33,11 @@
 
 <style>
 	nav {
-		background: #020916;
 		display: flex;
 		height: 65px;
 		align-items: center;
-		padding: 0 2%;
-
+		padding: 2.4% 3%;
+		/* margin-bottom: 20px; */
 	}
 	nav a {
 		margin-right: 30px;
@@ -53,7 +54,7 @@
 	nav ul li {
 		margin: 0 3px;
 	}
-	nav ul li a {
+	.nav-item {
 		height: 65px;
 		line-height: 65px;
 		margin: 0;
@@ -78,6 +79,11 @@
 		align-items: center;
 		padding: 10px;
 		margin-right: 13px;
+	}
+	.right-container form button {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
 	}
 	.right-container form input {
 		outline: none;
@@ -105,5 +111,22 @@
 		cursor: pointer;
 		text-decoration: none;
 	}
+	/* Responsive styles for tablets */
+	@media (max-width: 768px) {
+		.nav-item {
+			padding: 0 15px; /* Reduced padding */
+		}
+	}
 
+	/* Responsive styles for phones */
+	@media (max-width: 480px) {
+		.nav-item {
+			padding: 0 10px; /* Even more reduced padding */
+		}
+
+		/* Additional responsive adjustments can go here */
+		.right-container form input {
+			width: 150px; /* Adjust input width for smaller screens */
+		}
+	}
 </style>

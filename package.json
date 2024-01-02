@@ -20,8 +20,10 @@
 	"type": "module",
 	"dependencies": {
 		"@consumet/extensions": "^1.5.4",
+		"artplayer": "^5.1.0",
 		"axios": "^1.6.2",
 		"cheerio": "^1.0.0-rc.12",
+		"hls.js": "^1.4.14",
 		"iconify-icon": "^1.0.8",
 		"siema": "^1.5.1",
 		"svelte-hero-icons": "^5.0.0"

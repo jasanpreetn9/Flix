@@ -7,8 +7,8 @@
 		<div class="banner-gradient">
 			<ul class="breadcrumb">
 				<li><a href="/">Home</a></li>
-				<li><a href={`/${details.format}`}>{details.format}</a></li>
-				<li><a href={`/${details.format}/${details.movieId}`}>{details.title}</a></li>
+				<li><a href={`/${details?.format}`}>{details?.format}</a></li>
+				<li><a href={`/${details?.format}/${details?.movieId}`}>{details?.title}</a></li>
 			</ul>
 		</div>
 		<img src={details.banner} alt="" />
@@ -49,10 +49,9 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(rgba(2, 9, 22, 0), #0000006e 0%, rgb(2, 9, 22));
+		background: linear-gradient(rgba(2, 9, 22, 1), #0000004f 29.41%, rgb(2, 9, 22));
 	}
 	.content {
-		margin-top: 400px;
 		position: absolute;
 		width: 100%;
 		height: 100%;
@@ -63,6 +62,7 @@
 		margin: 15px;
 		list-style: none;
 		text-transform: capitalize;
+		padding: 0 2%;
 	}
 
 	/* Display list items side by side */

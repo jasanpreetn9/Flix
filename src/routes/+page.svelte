@@ -385,7 +385,7 @@
 	.header h1 {
 		opacity: 0.9;
 		text-transform: capitalize;
-		font-size: 1.8em;
+		font-size: 1.2em;
 		font-weight: 300;
 		margin-right: 10px;
 		color: #e9ecef;
@@ -404,23 +404,25 @@
 		flex-direction: row;
 		height: 100%;
 		margin-left: 20px;
+		
 	}
 	.header .button-container button {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		margin-right: 10px;
-		padding: 9px;
+		padding: 6px 14px;
 		height: 100%;
 		/* width: 20px; */
 		border: none;
 		border-radius: 5px;
 		font-size: 13px;
 		cursor: pointer;
+		background-color: #2c3237;
 	}
 	.header .button-container button.button-active {
 		background: var(--primary);
-		color: white;
+		color: var(--tertiary);
 	}
 	.cards-container {
 		display: grid;

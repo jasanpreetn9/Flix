@@ -5,7 +5,7 @@
 <div class="card">
 	<a href={`/${card.type}/${card.id}`}>
 		<div class="poster">
-			<img src={card.img} alt="" />
+			<img src={card.img} alt={card.title} />
 			<span>{card.quality}</span>
 		</div>
 		<div class="card-body">
@@ -21,6 +21,7 @@
 <style>
 	.card a {
 		text-decoration: none;
+		cursor: pointer;
 	}
 	.poster {
 		position: relative;
