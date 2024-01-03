@@ -1,6 +1,8 @@
 import * as cheerio from 'cheerio';
 import axios from 'axios';
-import { parseMovieCard } from '$lib/parsers';
+import { parseMovieCard, parseDetails } from '$lib/parsers';
+import { myflixerUrl } from '$lib/utils';
+
 export async function load() {
 	const { data } = await axios.get(`https://flixhq.pe/home`);
 	const $ = cheerio.load(data);
@@ -12,36 +14,27 @@ export async function load() {
 		latestTv: [],
 		comingSoon: []
 	};
-
+	const slidersId = [];
 	$('.swiper-wrapper .swiper-slide').each((index, element) => {
-		const genres = $(element)
-			.find('.scd-item:nth-child(4) strong a')
-			.map((index, element) => ({
-				title: $(element).text(),
-				href: $(element).attr('href')
-			}))
-			.get();
-
-		result.sliders.push({
-			banner: $(element)
-				.attr('style')
-				.match(/url\((.*?)\)/)[1]
-				.replace(/['"]/g, ''),
-			title: $(element).find('.film-title').text(),
-			image: $(element)
-				.attr('style')
-				.match(/url\((.*?)\)/)[1]
-				.replace(/['"]/g, ''),
-			id: $(element).find('a').attr('href').split('/watch-')[1],
-			format: $(element).find('a').attr('href').split('/watch-')[0].replace('/', ''),
-			quality: $(element).find('.quality').text(),
-			duration: $(element).find('.scd-item:nth-child(2) strong').text(),
-			imdbRating: $(element).find('.scd-item:nth-child(3) strong').text(),
-			genres,
-			description: $(element).find('.sc-desc').text()
+		slidersId.push({
+			id: $(element).find('.slide-link').attr('href').split('watch-')[1],
+			format: $(element).find('.slide-link').attr('href').split('watch-')[0].replaceAll('/', '')
 		});
 	});
+	const axiosSliderPromises = [];
+	for (const index in slidersId) {
+		const slider = slidersId[index];
 
+		axiosSliderPromises.push(
+			axios.get(`${myflixerUrl}/${slider.format}/${slider.id}`).then(({ data }) => {
+				result.sliders.push(parseDetails(data, slider.id, slider.format));
+			})
+		);
+	}
+	console.time('sliders');
+	await Promise.all(axiosSliderPromises);
+	console.timeEnd('sliders');
+	
 	$('#trending-movies .flw-item').each((index, element) => {
 		result.trendingMovies.push(parseMovieCard(element));
 	});

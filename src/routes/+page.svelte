@@ -4,7 +4,7 @@
 	import Siema from 'siema';
 	import { onMount } from 'svelte';
 	import { MovieCard } from '$lib/components';
-	import { Icon, Play, ListBullet, ChevronRight, ChevronLeft } from 'svelte-hero-icons';
+	import { Icon, Play, ListBullet } from 'svelte-hero-icons';
 	const { sliders, trendingMovies, trendingTv, latestMovies, latestTv, comingSoon } = data;
 
 	let slider, prev, next, radioSlider;
@@ -56,12 +56,6 @@
 
 <div class="container">
 	<div class="carousel-container">
-		<button on:click={prev} class="pre-btn">
-			<Icon src={ChevronLeft} size="20px" color="white" />
-		</button>
-		<button on:click={next} class="nxt-btn">
-			<Icon src={ChevronRight} size="20px" color="white" />
-		</button>
 		<div class="carousel">
 			{#each sliders as movie}
 				<div class="slider">
@@ -69,20 +63,20 @@
 						<h1 class="movie-title">
 							{movie.title}
 						</h1>
-						<div class="badges-container">
-							<!-- HD Duration IMDB Genre-->
-							<p class="badges">
-								Duration: {movie?.duration}
-							</p>
-							<span class="dots" />
-							<p class="badges">IMDB: {movie?.imdbRating}</p>
-							<span class="dots" />
-							<p class="badges">Genre: {movie?.genre}</p>
+
+						<div class="attributes">
+							<p class="quality">{movie.quality}</p>
+							<p>Duration: {movie?.duration}</p>
+							<p>IMDB: {movie?.imdbRating}</p>
+							<p>Genre: {movie?.genres.map((item) => item.title).join(', ')}</p>
 						</div>
 						<p class="movie-des">
 							{movie?.description}
 						</p>
-						<a class="watch-btn" href={`/details/${movie?.idMal}`}>Watch</a>
+						<a class="watch-btn" href={`/`}>
+							<Icon src={Play} size="14" mini style="margin-right: 5px;" />
+							Watch
+						</a>
 					</div>
 					<img src={movie?.banner} alt="" loading="lazy" />
 					<div class="banner-gradient" />
@@ -112,7 +106,6 @@
 		<div class="button-container">
 			<button on:click={() => (showMovies = true)} class={showMovies ? 'button-active' : ''}>
 				<Icon src={Play} size="14" mini style="margin-right: 5px;" />
-
 				Movies
 			</button>
 			<button on:click={() => (showMovies = false)} class={showMovies ? '' : 'button-active'}>
@@ -156,6 +149,9 @@
 </div>
 
 <style>
+	:root {
+		--carouselHeight: 500px;
+	}
 	.carousel-container {
 		position: relative;
 		width: 100%;
@@ -164,31 +160,10 @@
 		overflow: hidden;
 	}
 
-	.pre-btn,
-	.nxt-btn {
-		position: absolute;
-		top: 0;
-		width: 3%;
-		height: 100%;
-		z-index: 2;
-		border: none;
-		cursor: pointer;
-		outline: none;
-		background-color: transparent;
-	}
-
-	.pre-btn {
-		left: 0;
-	}
-
-	.nxt-btn {
-		right: 0;
-	}
-
 	.carousel {
 		position: relative;
 		margin: auto;
-		height: 400px;
+		height: var(--carouselHeight);
 		border-radius: 5px;
 		overflow: hidden;
 	}
@@ -203,15 +178,11 @@
 		left: 0;
 		transition: 1s;
 		overflow: hidden;
-		height: 400px;
-		align-items: center;
-		justify-content: center;
-		align-items: center;
+		height: var(--carouselHeight);
 	}
 
 	.slider img {
 		margin: 0 auto;
-		height: 100%;
 		width: 100%;
 		object-fit: cover;
 		opacity: 0.7;
@@ -223,86 +194,87 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background: linear-gradient(rgba(2, 9, 22, 1) 0.42%, rgba(3, 10, 21, 0) 50.42%, #020916 95.38%);
+		background: linear-gradient(rgba(3, 10, 21, 0) 10%, #020916 95.38%);
 	}
 	.slide-content {
 		position: absolute;
 		width: 100%;
-		height: 60%;
+		height: 100%;
 		padding-left: 50px;
 		z-index: 2;
 		color: #fff;
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
 	}
 
 	.movie-title {
 		width: 100%;
 		max-width: 300px;
 		text-transform: capitalize;
-		margin-top: 20px;
-		font-size: 27px;
+		font-size: 2.6em;
+		font-weight: 700;
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
+		margin: 0 0 10px 0;
+		font-size: 2.6em;
+		color: #fff;
+		line-height: 1.3em;
+		font-weight: 500;
+		text-shadow: 0 1px 10px #111;
 	}
 
-	.badges-container {
-		display: flex;
-		flex-wrap: wrap;
-		max-width: 300px;
-	}
-
-	.badges {
-		margin-top: 10px;
-		padding: 6px;
-		border-radius: 16px;
-		text-align: center;
-		font-size: 14px;
-		margin-right: 3px;
-		opacity: 85%;
+	.attributes {
 		display: flex;
 		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		margin-bottom: 10px;
 	}
-
-	.dots {
-		margin-top: 21.5px;
-		width: 5px;
-		height: 5px;
-		border-radius: 50%;
-		background: white;
-		display: inline-block;
+	.attributes .quality {
+		background: var(--primary);
+		padding: 2px 12px;
+		border-radius: 10px;
+		color: var(--tertiary);
+		font-size: 13px;
+		font-weight: 400;
+		margin-right: 10px;
 	}
-
+	.attributes p {
+		margin-right: 10px;
+		font-size: 14px;
+	}
 	.movie-des {
-		width: 40%;
-		line-height: 24px;
+		width: 50%;
 		margin-top: 5px;
 		opacity: 0.9;
+		font-size: 14px;
+		color: #adb5bd;
+		font-weight: 400;
+		line-height: 1.5em;
+		margin-bottom: 25px;
 		display: -webkit-box;
-		-webkit-line-clamp: 4;
+		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
-		font-size: 14px;
-		margin-bottom: 15px;
 	}
 
 	.watch-btn {
-		background: var(--primary);
-		padding: 10px;
-		color: #fff;
-		border-radius: 5px;
-		border: none;
+		background: transparent;
+		padding: 7px 20px;
+		color: var(--primary);
+		border: 1px solid var(--primary);
+		border-radius: 20px;
 		outline: none;
 		text-transform: uppercase;
 		font-weight: 700;
 		font-size: 12px;
 		cursor: pointer;
 		text-decoration: none;
+		width: fit-content;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.bullet {
@@ -367,8 +339,8 @@
 			margin-right: 10px;
 			height: 250px;
 		}
-		.nxt-btn {
-			margin-right: 10px;
+		.movie-title{
+			font-size: 24px;
 		}
 	}
 
@@ -404,7 +376,6 @@
 		flex-direction: row;
 		height: 100%;
 		margin-left: 20px;
-		
 	}
 	.header .button-container button {
 		display: flex;

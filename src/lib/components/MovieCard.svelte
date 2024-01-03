@@ -5,7 +5,7 @@
 <div class="card">
 	<a href={`/${card.type}/${card.id}`}>
 		<div class="poster">
-			<img src={card.img} alt={card.title} />
+			<img src={card.img} alt={card.title} loading="lazy" />
 			<span>{card.quality}</span>
 		</div>
 		<div class="card-body">
