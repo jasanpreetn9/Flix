@@ -43,7 +43,6 @@ export async function load({ params, url }) {
 
 	const getSources = async () => {
 		if (format == 'movie') {
-			console.log(id,format,params.movieId)
 			const sources = await flixhq.fetchEpisodeSources(id, `${format}/${params.movieId}`);
 			return sources
 		} else {

@@ -3,7 +3,7 @@
 	import 'iconify-icon';
 	import Siema from 'siema';
 	import { onMount } from 'svelte';
-	import { MovieCard } from '$lib/components';
+	import { MovieCards } from '$lib/components';
 	import { Icon, Play, ListBullet } from 'svelte-hero-icons';
 	const { sliders, trendingMovies, trendingTv, latestMovies, latestTv, comingSoon } = data;
 
@@ -101,7 +101,7 @@
 		{/each}
 	</div>
 
-	<div class="header">
+	<!-- <div class="header">
 		<h1>Trending</h1>
 		<div class="button-container">
 			<button on:click={() => (showMovies = true)} class={showMovies ? 'button-active' : ''}>
@@ -118,34 +118,24 @@
 		{#each showMovies ? trendingMovies : trendingTv as card}
 			<MovieCard {card} />
 		{/each}
-	</div>
+	</div> -->
 
-	<div class="header">
-		<h1>Latest Movies</h1>
-	</div>
-	<div class="cards-container">
-		{#each latestMovies as card}
-			<MovieCard {card} />
-		{/each}
-	</div>
+	<MovieCards cards={showMovies ? trendingMovies : trendingTv} header="Trending">
+		<div class="button-container" slot="header">
+			<button on:click={() => (showMovies = true)} class={showMovies ? 'button-active' : ''}>
+				<Icon src={Play} size="14" mini style="margin-right: 5px;" />
+				Movies
+			</button>
+			<button on:click={() => (showMovies = false)} class={showMovies ? '' : 'button-active'}>
+				<Icon src={ListBullet} size="14" mini style="margin-right: 5px" />
+				Tv Shows
+			</button>
+		</div>
+	</MovieCards>
 
-	<div class="header">
-		<h1>Latest Tv Shows</h1>
-	</div>
-	<div class="cards-container">
-		{#each latestTv as card}
-			<MovieCard {card} />
-		{/each}
-	</div>
-
-	<div class="header">
-		<h1>Coming Soon</h1>
-	</div>
-	<div class="cards-container">
-		{#each comingSoon as card}
-			<MovieCard {card} />
-		{/each}
-	</div>
+	<MovieCards cards={latestMovies} header="Latest Movies" />
+	<MovieCards cards={latestTv} header="Latest TV Shows" />
+	<MovieCards cards={comingSoon} header="Coming Soon" />
 </div>
 
 <style>
@@ -305,6 +295,30 @@
 		background-color: var(--primary);
 	}
 
+	.button-container {
+		display: flex;
+		flex-direction: row;
+		height: 100%;
+		margin-left: 20px;
+	}
+	.button-container button {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-right: 10px;
+		padding: 6px 14px;
+		height: 100%;
+		/* width: 20px; */
+		border: none;
+		border-radius: 5px;
+		font-size: 13px;
+		cursor: pointer;
+		background-color: #2c3237;
+	}
+	.button-container button.button-active {
+		background: var(--primary);
+		color: var(--tertiary);
+	}
 	@media (max-width: 768px) {
 		.carousel-container {
 			padding: 5px 0;
@@ -339,66 +353,9 @@
 			margin-right: 10px;
 			height: 250px;
 		}
-		.movie-title{
+		.movie-title {
 			font-size: 24px;
 		}
 	}
 
-	.container {
-		padding: 0 3%;
-	}
-	.header {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		text-align: center;
-		margin-bottom: 10px;
-	}
-	.header h1 {
-		opacity: 0.9;
-		text-transform: capitalize;
-		font-size: 1.2em;
-		font-weight: 300;
-		margin-right: 10px;
-		color: #e9ecef;
-		line-height: 34px;
-		font-size: 1.8em !important;
-		line-height: 34px;
-		height: 34px;
-		padding: 0;
-		margin: 0;
-		color: #e9ecef;
-		font-weight: 300;
-		/* border-bottom: var(--secondary) 1px solid; */
-	}
-	.header .button-container {
-		display: flex;
-		flex-direction: row;
-		height: 100%;
-		margin-left: 20px;
-	}
-	.header .button-container button {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-right: 10px;
-		padding: 6px 14px;
-		height: 100%;
-		/* width: 20px; */
-		border: none;
-		border-radius: 5px;
-		font-size: 13px;
-		cursor: pointer;
-		background-color: #2c3237;
-	}
-	.header .button-container button.button-active {
-		background: var(--primary);
-		color: var(--tertiary);
-	}
-	.cards-container {
-		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-		margin-bottom: 30px;
-	}
 </style>

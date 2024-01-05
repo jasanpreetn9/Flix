@@ -1,6 +1,5 @@
 <script>
 	export let episodes, seasons, details,currentEpisodeId;
-	console.log(currentEpisodeId)
 	import { clickOutside } from '$lib/utils';
 	import { Icon, ListBullet, ChevronDown } from 'svelte-hero-icons';
 	let showDropdown = false;

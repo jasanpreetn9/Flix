@@ -1,8 +1,10 @@
 <script>
 	import '$lib/global.css';
 	import { genres } from '$lib/utils';
-	import { Icon, MagnifyingGlass, Bars3 } from 'svelte-hero-icons';
 	import { Modal } from '$lib/components';
+	import { page } from '$app/stores';
+	$: isPadding = $page.url.pathname.includes('movie') || $page.url.pathname.includes('tv-show');
+	import { Icon, MagnifyingGlass, Bars3 } from 'svelte-hero-icons';
 	let showModal = false;
 </script>
 
@@ -43,7 +45,7 @@
 		</form>
 	</Modal>
 {/if}
-<main>
+<main style={isPadding ? '' : 'padding: 0 3%'}>
 	<slot />
 </main>
 
@@ -174,7 +176,6 @@
 		cursor: pointer;
 		border: none;
 	}
-
 	/* Responsive styles for tablets */
 	@media (max-width: 768px) {
 		.nav-item {

@@ -1,27 +1,27 @@
 <script>
-    export let pagination;
+	export let pagination;
 </script>
 
 <div class="pagination">
-    {#each pagination as item}
-        <a href={`/movies?page=${item.href}`} class={item.active ? 'active' : ''}>{item.title}</a>
-    {/each}
+	{#each pagination as item}
+		<a href={`/movies?page=${item.href}`} class={item.active ? 'active' : ''}>{item.title}</a>
+	{/each}
 </div>
 
 <style>
-    .pagination {
+	.pagination {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		margin-left: 20px;
 		justify-content: center;
-        margin-bottom: 30px;
+		margin-bottom: 30px;
 	}
 	.pagination a {
 		padding: 7px 12px;
-        border-radius: 7px;
-        cursor: pointer;
-		color: #57626D;
+		border-radius: 7px;
+		cursor: pointer;
+		color: #57626d;
 	}
 	.pagination .active {
 		background: var(--primary);

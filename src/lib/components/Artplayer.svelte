@@ -17,7 +17,6 @@
 
 	async function initPlayer() {
 		const defaultSource = streamingData.sources.reduce((prev, current) => {return prev.quality > current.quality ? prev : current}).url;
-		console.log(defaultSource)
 		artplayer = new Artplayer({
 			container: '.artplayer-container',
 			// id: `${details.idMal}-${currentEp.number}`,

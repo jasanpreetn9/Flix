@@ -1,26 +1,19 @@
 <script>
-	import { MovieCard, Pagination } from '$lib/components';
+	import { MovieCards, Pagination } from '$lib/components';
 	export let data;
 	const { pagination, result } = data;
 </script>
 
 <div class="container">
-	<div class="header">
-		<h1>{data.cast}</h1>
-	</div>
-	<Pagination {pagination} />
-	<div class="cards-container">
-		{#each result as card}
-			<MovieCard {card} />
-		{/each}
-	</div>
+	<!-- <Pagination {pagination} /> -->
+	<MovieCards cards={result} header={data.cast}> 
+		<Pagination {pagination} slot="pagination"/>
+	</MovieCards>
+	
 	<Pagination {pagination} />
 </div>
 
 <style>
-	.container {
-		padding: 0 3%;
-	}
 	.header {
 		display: flex;
 		flex-direction: row;

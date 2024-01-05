@@ -18,9 +18,6 @@
 </div>
 
 <style>
-	.container {
-		padding: 0 3%;
-	}
 	.header {
 		display: flex;
 		flex-direction: row;

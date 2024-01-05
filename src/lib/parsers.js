@@ -11,7 +11,7 @@ export const parseMovieCard = (element) => {
 
 	// Extracting the ID from the URL
 	const id = $('.film-name a').attr('href').split('/')[2];
-
+	
 	// Extracting the quality information
 	const quality = $('.film-poster .film-poster-quality').text().trim();
 
