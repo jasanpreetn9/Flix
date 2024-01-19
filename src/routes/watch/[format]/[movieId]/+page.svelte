@@ -15,15 +15,5 @@
 	{/if}
 	<Details {details} />
 
-	<!-- <div class="cards-container">
-		<div class="header">
-			<h1>You may also like</h1>
-		</div>
-		<div class="cards">
-			{#each details.recommendations as card}
-				<MovieCard {card} />
-			{/each}
-		</div>
-	</div> -->
 	<MovieCards cards={details.recommendations} header="You may also like"/>
 </Gradient>

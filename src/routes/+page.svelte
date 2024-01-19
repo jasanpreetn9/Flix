@@ -101,25 +101,6 @@
 		{/each}
 	</div>
 
-	<!-- <div class="header">
-		<h1>Trending</h1>
-		<div class="button-container">
-			<button on:click={() => (showMovies = true)} class={showMovies ? 'button-active' : ''}>
-				<Icon src={Play} size="14" mini style="margin-right: 5px;" />
-				Movies
-			</button>
-			<button on:click={() => (showMovies = false)} class={showMovies ? '' : 'button-active'}>
-				<Icon src={ListBullet} size="14" mini style="margin-right: 5px" />
-				Tv Shows
-			</button>
-		</div>
-	</div>
-	<div class="cards-container">
-		{#each showMovies ? trendingMovies : trendingTv as card}
-			<MovieCard {card} />
-		{/each}
-	</div> -->
-
 	<MovieCards cards={showMovies ? trendingMovies : trendingTv} header="Trending">
 		<div class="button-container" slot="header">
 			<button on:click={() => (showMovies = true)} class={showMovies ? 'button-active' : ''}>
