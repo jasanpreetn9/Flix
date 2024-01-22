@@ -1,7 +1,7 @@
 <script>
 	import { MovieCard, Pagination } from '$lib/components';
 	export let data;
-	const { searchResults, searchQuery, pagination } = data;
+	$: ({ searchResults, searchQuery, pagination } = data);
 </script>
 
 <div class="cards-container">

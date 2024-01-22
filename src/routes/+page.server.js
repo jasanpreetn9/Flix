@@ -31,9 +31,7 @@ export async function load() {
 			})
 		);
 	}
-	console.time('sliders');
 	await Promise.all(axiosSliderPromises);
-	console.timeEnd('sliders');
 	
 	$('#trending-movies .flw-item').each((index, element) => {
 		result.trendingMovies.push(parseMovieCard(element));

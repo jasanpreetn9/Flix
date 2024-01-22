@@ -1,7 +1,7 @@
 <script>
 	import { MovieCard, Pagination } from '$lib/components';
 	export let data;
-	const { pagination, result } = data;
+	$: ({ pagination, result } = data);
 </script>
 
 <div class="container">
@@ -10,7 +10,7 @@
 	</div>
 	<Pagination {pagination} />
 	<div class="cards-container">
-		{#each data.result as card}
+		{#each result as card}
 			<MovieCard {card} />
 		{/each}
 	</div>

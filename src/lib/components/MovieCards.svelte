@@ -70,6 +70,7 @@
 	.card img {
 		width: 100%;
 		border-radius: 7px;
+		aspect-ratio: 2/3;
 	}
 	.card .poster span {
 		position: absolute;

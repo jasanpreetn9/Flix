@@ -134,7 +134,7 @@
 	.carousel {
 		position: relative;
 		margin: auto;
-		height: var(--carouselHeight);
+		height: max-content;
 		border-radius: 5px;
 		overflow: hidden;
 	}
@@ -149,7 +149,7 @@
 		left: 0;
 		transition: 1s;
 		overflow: hidden;
-		height: var(--carouselHeight);
+		height: 500px;
 	}
 
 	.slider img {
@@ -159,6 +159,7 @@
 		opacity: 0.7;
 		border-radius: 5px;
 		position: absolute;
+		height: 100%;
 	}
 
 	.banner-gradient {
@@ -177,6 +178,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: end;
+		padding-bottom: 50px;
 	}
 
 	.movie-title {
@@ -295,6 +297,7 @@
 		font-size: 13px;
 		cursor: pointer;
 		background-color: #2c3237;
+		color: white;
 	}
 	.button-container button.button-active {
 		background: var(--primary);
@@ -312,6 +315,7 @@
 		.slider {
 			margin-right: 15px;
 			height: 300px;
+			padding-bottom: 0;
 		}
 
 		.slider img {
@@ -323,6 +327,9 @@
 			-webkit-box-orient: vertical;
 			width: 70%;
 		}
+		.movie-des {
+			display: none;
+		}
 	}
 
 	@media (max-width: 756px) {
@@ -333,10 +340,10 @@
 		.slider {
 			margin-right: 10px;
 			height: 250px;
+			padding-bottom: 0;
 		}
 		.movie-title {
 			font-size: 24px;
 		}
 	}
-
 </style>

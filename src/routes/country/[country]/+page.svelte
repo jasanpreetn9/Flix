@@ -1,7 +1,7 @@
 <script>
 	import { MovieCard, Pagination } from '$lib/components';
 	export let data;
-	const { pagination, result } = data;
+	$: ({ pagination, result } = data);
 </script>
 
 <div class="container">

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { myflixerUrl } from '$lib/utils';
 import { parseDetails, parseEpisodes, parseSeasons } from '$lib/parsers';
-
+import { MOVIES } from '@consumet/extensions';
 // Episodes Providers: https://myflixerz.to/ajax/episode/list/103714
 // Episodes Seasons: https://myflixerz.to/ajax/season/list/39480
 // Episodes URL: https://myflixerz.to/ajax/season/episodes/626
@@ -39,10 +39,13 @@ export async function load({ params, url }) {
 		return { episodes, seasons };
 	};
 
+	const fetchServer = async () => {
+		const flix = new MOVIES.FlixHQ();
+	};
 	return {
 		details: await fetchDetails(),
 		streamed: {
-			streamingData: streamingData(),
+			streamingData: streamingData()
 		}
 	};
 }

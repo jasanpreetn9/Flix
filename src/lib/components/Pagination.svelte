@@ -4,7 +4,7 @@
 
 <div class="pagination">
 	{#each pagination as item}
-		<a href={`/movies?page=${item.href}`} class={item.active ? 'active' : ''}>{item.title}</a>
+		<a href={`${item.href}`} class={item.active ? 'active' : ''}>{item.title}</a>
 	{/each}
 </div>
 

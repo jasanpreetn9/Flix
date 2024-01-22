@@ -10,7 +10,7 @@ export const parseMovieCard = (element) => {
 	const type = $('.film-detail .fd-infor .fdi-type').text().trim().toLowerCase();
 
 	// Extracting the ID from the URL
-	const id = $('.film-name a').attr('href').split('/')[2];
+	const id = $('.film-name a').attr('href').split('/')[2].replace("watch-","");
 	
 	// Extracting the quality information
 	const quality = $('.film-poster .film-poster-quality').text().trim();

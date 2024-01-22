@@ -43,11 +43,12 @@ export async function load({ params, url }) {
 
 	const getSources = async () => {
 		if (format == 'movie') {
-			const sources = await flixhq.fetchEpisodeSources(id, `${format}/${params.movieId}`);
+			console.log(`${format}/watch-${params.movieId}`)
+			const sources = await flixhq.fetchEpisodeSources(id, `${format}/watch-${params.movieId}`);
 			return sources
 		} else {
 			const episodesId = params.movieId.split(".")[1]
-			const sources = await flixhq.fetchEpisodeSources(episodesId, `${format}/${movieId}`);
+			const sources = await flixhq.fetchEpisodeSources(episodesId, `${format}watch-/${movieId}`);
 			return sources
 		}
 	};

@@ -1,18 +1,39 @@
 <script>
 	import '$lib/global.css';
-	import { genres } from '$lib/utils';
+	import { genres, logo, clickOutside } from '$lib/utils';
 	import { Modal } from '$lib/components';
 	import { page } from '$app/stores';
 	$: isPadding = $page.url.pathname.includes('movie') || $page.url.pathname.includes('tv-show');
 	import { Icon, MagnifyingGlass, Bars3 } from 'svelte-hero-icons';
 	let showModal = false;
+	let sideMenu = false;
 </script>
 
+<svelte:head>
+	<title>FLix</title>
+	<link rel="icon" href={logo} />
+</svelte:head>
+
 <nav>
+	<button class="mobile-menu-btn" on:click={() => (sideMenu = !sideMenu)}>
+		<Icon src={Bars3} size="22" color="white" />
+	</button>
+	{#if sideMenu}
+		<div class="mobile-menu" use:clickOutside on:click_outside={() => (sideMenu = false)}>
+			<ul>
+				<li><a class="nav-item" href="/">Home</a></li>
+				<li><a class="nav-item" href="/">Genre</a></li>
+				<li><a class="nav-item" href="/">Country</a></li>
+				<li><a class="nav-item" href="/movies">Movies</a></li>
+				<li><a class="nav-item" href="/tv-shows">TV Shows</a></li>
+				<li><a class="nav-item" href="/">Top IMDB</a></li>
+			</ul>
+		</div>
+	{/if}
 	<a href="/" class="icon">
-		<img src="https://myflixerz.to/images/group_1/theme_7/logo.png?v=0.1" alt="Icon" />
+		<img src={logo} alt="Icon" />
 	</a>
-	<ul>
+	<ul class="nav-items">
 		<li><a class="nav-item" href="/">Home</a></li>
 		<li><p class="dropdown genre nav-item">Genre</p></li>
 		<li><a class="dropdown country nav-item" href="/">Country</a></li>
@@ -30,7 +51,7 @@
 		<button class="login-btn" on:click={() => (showModal = true)}>Login</button>
 	</div>
 </nav>
-{#if showModal}
+<!-- {#if showModal}
 	<Modal bind:showModal>
 		<form action="/login" method="POST" class="login">
 			<h3>Login Here</h3>
@@ -44,7 +65,7 @@
 			<button>Log In</button>
 		</form>
 	</Modal>
-{/if}
+{/if} -->
 <main style={isPadding ? '' : 'padding: 0 3%'}>
 	<slot />
 </main>
@@ -56,6 +77,46 @@
 		align-items: center;
 		padding: 2.4% 3%;
 		/* margin-bottom: 20px; */
+	}
+	.mobile-menu-btn {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		display: none;
+		margin-right: 20px;
+	}
+	.mobile-menu {
+		left: 0;
+		z-index: 100;
+		position: absolute;
+		top: 70px;
+		width: calc(100% - 30px);
+		max-width: 400px;
+		border-radius: 10px;
+		padding: 10px 20px;
+		background: #141e2d;
+		color: #ccc;
+		height: max-content;
+		margin-left: 3%;
+		display: -webkit-box;
+		-webkit-transition: all 0.2s ease 0s;
+	}
+	.mobile-menu ul {
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+		width: 100%;
+	}
+	.mobile-menu ul li {
+		display: block;
+		width: 100%;
+		border-bottom: 1px solid #0f1722;
+		position: relative;
+	}
+	.mobile-menu ul li a {
+		display: block;
+		padding: 15px 0;
+		color: #bbb;
 	}
 	nav a {
 		margin-right: 30px;
@@ -130,7 +191,7 @@
 		text-decoration: none;
 	}
 
-	.login h3 {
+	/* .login h3 {
 		font-size: 32px;
 		font-weight: 500;
 		line-height: 42px;
@@ -158,7 +219,7 @@
 		font-weight: 300;
 		border: none;
 		color: white;
-	}
+	} 
 
 	::placeholder {
 		color: #e5e5e5;
@@ -175,23 +236,23 @@
 		border-radius: 5px;
 		cursor: pointer;
 		border: none;
+	} */
+	@media (max-width: 1085px) {
+		.nav-item {
+			transition: 1s;
+			padding: 0 10px;
+		}
 	}
 	/* Responsive styles for tablets */
-	@media (max-width: 768px) {
+	@media (max-width: 949px) {
+		.nav-items {
+			display: none;
+		}
 		.nav-item {
 			padding: 0 15px; /* Reduced padding */
 		}
-	}
-
-	/* Responsive styles for phones */
-	@media (max-width: 480px) {
-		.nav-item {
-			padding: 0 10px; /* Even more reduced padding */
-		}
-
-		/* Additional responsive adjustments can go here */
-		.right-container form input {
-			width: 150px; /* Adjust input width for smaller screens */
+		.mobile-menu-btn {
+			display: block;
 		}
 	}
 </style>
