@@ -4,7 +4,7 @@
 
 <div class="header">
 	{#if header}
-		<h1>{header}</h1>
+		<h1>{@html header}</h1>
 	{/if}
 	<slot name="header" />
 </div>

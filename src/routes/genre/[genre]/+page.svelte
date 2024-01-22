@@ -1,21 +1,16 @@
 <script>
-	import { MovieCard, Pagination } from '$lib/components';
+	import { MovieCards, Pagination } from '$lib/components';
 	export let data;
 	$: ({ pagination, result } = data);
 </script>
 
 <div class="container">
-	<div class="header">
-		<h1>{data.genre} Movies and Tv Shows</h1>
-	</div>
-	<Pagination {pagination} />
-	<div class="cards-container">
-		{#each result as card}
-			<MovieCard {card} />
-		{/each}
-	</div>
+	<MovieCards cards={result} header={`${data.genre} Movies and Tv Shows`}>
+		<Pagination {pagination} slot="pagination" />
+	</MovieCards>
 	<Pagination {pagination} />
 </div>
+
 
 <style>
 
