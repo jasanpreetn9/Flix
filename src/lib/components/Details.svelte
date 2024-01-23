@@ -10,7 +10,7 @@
 	</div>
 	<div class="info">
 		<div class="btn-container">
-			<a href={`/watch/${details.format}/${details.movieId}`} class="watchNow-btn">
+			<a href={`/watch/${details.format}/${details.id}`} class="watchNow-btn">
 				<Icon src={Play} size="18" style="margin-right: 5px;" />
 				Watch Now
 			</a>
@@ -28,47 +28,50 @@
 				{details.quality}
 			</p>
 		</div>
-		<p class="title">{details.title}</p>
+		<a class="title" href={`/${details.format}/${details.id}`}>{details.title}</a>
 		<p class="description">{details.description}</p>
 		<div class="attributes">
-			<p class="attribute">
-				<strong>Released: </strong>
-				{details.released}
-			</p>
+			<div class="attribute-colum">
+				<p class="attribute">
+					<strong>Released: </strong>
+					{details.released}
+				</p>
 
-			<p class="attribute">
-				<strong>Genre: </strong>
-				<!-- {details.genre.join(', ')} -->
-				{#each details.genres as genre}
-					<a href={`/genre/${genre.href}`}>{genre.title}</a>
-				{/each}
-			</p>
+				<p class="attribute">
+					<strong>Genre: </strong>
+					<!-- {details.genre.join(', ')} -->
+					{#each details.genres as genre}
+						<a href={`/genre/${genre.href}`}>{genre.title}</a>
+					{/each}
+				</p>
 
-			<p class="attribute">
-				<strong>Casts: </strong>
-				{#each details.casts as cast}
-					<a href={`/cast/${cast.href}`}>{cast.title}</a>
-				{/each}
-			</p>
+				<p class="attribute">
+					<strong>Casts: </strong>
+					{#each details.casts as cast}
+						<a href={`/cast/${cast.href}`}>{cast.title}</a>
+					{/each}
+				</p>
+			</div>
+			<div class="attributes-colum">
+				<p class="attribute">
+					<strong>Duration: </strong>
+					{details.duration}m
+				</p>
 
-			<p class="attribute">
-				<strong>Duration: </strong>
-				{details.duration}m
-			</p>
+				<p class="attribute">
+					<strong>Country: </strong>
+					{#each details.country as cast}
+						<a href={`/country/${cast.href}`}>{cast.title}</a>
+					{/each}
+				</p>
 
-			<p class="attribute">
-				<strong>Country: </strong>
-				{#each details.country as cast}
-					<a href={`/country/${cast.href}`}>{cast.title}</a>
-				{/each}
-			</p>
-
-			<p class="attribute">
-				<strong>Production: </strong>
-				{#each details.production as cast}
-					<a href={`/production/${cast.href}`}>{cast.title}</a>
-				{/each}
-			</p>
+				<p class="attribute">
+					<strong>Production: </strong>
+					{#each details.production as cast}
+						<a href={`/production/${cast.href}`}>{cast.title}</a>
+					{/each}
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -194,21 +197,24 @@
 		margin-right: 4px;
 	}
 	@media (max-width: 850px) {
+		.poster {
+			display: none;
+		}
 		.details {
-		display: flex;
-		flex-direction: column;
-		background-color: #0a1220;
-		border-radius: 10px;
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-		padding: 30px;
-		margin-bottom: 30px;
-		justify-content: center;
-		align-items: center;
+			display: flex;
+			flex-direction: column;
+			background-color: #0a1220;
+			border-radius: 10px;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+			padding: 30px;
+			margin-bottom: 30px;
+			justify-content: center;
+			align-items: center;
+		}
+		.details .poster img {
+			margin-right: 0px;
+			border-radius: 10px;
+			width: max-content;
+		}
 	}
-	.details .poster img {
-		margin-right: 0px;
-		border-radius: 10px;
-		width: max-content;
-	}
-}
 </style>

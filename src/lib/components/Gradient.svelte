@@ -88,9 +88,9 @@
 		color: var(--primary);
 		text-decoration: underline;
 	}
-	@media (max-width: 850px) {
+	/* @media (max-width: 850px) {
 		.banner {
 			display: none;
 		}
-	}
+	} */
 </style>

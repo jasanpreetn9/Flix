@@ -44,11 +44,11 @@ export const parsePagination = (element) => {
 	};
 };
 
-export const parseDetails = (element, movieId, format) => {
+export const parseDetails = (element, id, format) => {
 	const $ = cheerio.load(element);
 
 	const result = {
-		movieId: movieId,
+		id,
 		banner: $('.cover_follow')
 			.attr('style')
 			?.match(/url\((.*?)\)/)[1]
