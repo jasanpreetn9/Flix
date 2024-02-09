@@ -1,7 +1,6 @@
 import * as cheerio from 'cheerio';
 export const myflixerUrl = 'https://myflixerz.to';
-import logo from '$lib/images/logo.png';
-export { logo };
+export { default as logo } from '$lib/images/logo.png';
 export function clickOutside(node) {
 	const handleClick = (event) => {
 		if (node && !node.contains(event.target) && !event.defaultPrevented) {

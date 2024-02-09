@@ -10,56 +10,63 @@ import { parseDetails, parseEpisodes, parseSeasons } from '$lib/parsers';
 export async function load({ params, url }) {
 	const flixhq = new MOVIES.FlixHQ();
 	const format = params.format.toLowerCase();
-	const movieId = params.movieId.split(".")[0];
+	const movieId = params.movieId.split('.')[0];
 	const parts = movieId.split('-');
 	const id = parts[parts.length - 1];
-	
+
 	const fetchDetails = async () => {
 		const { data } = await axios.get(`${myflixerUrl}/${format}/${movieId}`);
 		return parseDetails(data, movieId, format);
 	};
 
 	const streamingData = async () => {
-		let seasons;
-		const episodePromises = [];
-		const episodes = [];
-		if (format === 'tv') {
-			// fetch all the seasons
-			const { data: seasonsText } = await axios.get(`${myflixerUrl}/ajax/season/list/${id}`);
-			seasons = parseSeasons(seasonsText);
-			// add all the season episodes to the episodePromises array to all be fetched at once
-			for (const season of seasons) {
-				episodePromises.push(
-					axios.get(`${myflixerUrl}/ajax/season/episodes/${season.id}`).then(({ data }) => {
-						const seasonEpisodes = parseEpisodes(data, season);
-						episodes.push(...seasonEpisodes);
-					})
-				);
+		try {
+			let seasons;
+			const episodePromises = [];
+			const episodes = [];
+			if (format === 'tv') {
+				// fetch all the seasons
+				const { data: seasonsText } = await axios.get(`${myflixerUrl}/ajax/season/list/${id}`);
+				seasons = parseSeasons(seasonsText);
+				// add all the season episodes to the episodePromises array to all be fetched at once
+				for (const season of seasons) {
+					episodePromises.push(
+						axios.get(`${myflixerUrl}/ajax/season/episodes/${season.id}`).then(({ data }) => {
+							const seasonEpisodes = parseEpisodes(data, season);
+							episodes.push(...seasonEpisodes);
+						})
+					);
+				}
+				await Promise.all(episodePromises);
 			}
-			await Promise.all(episodePromises);
+			return { episodes, seasons };
+		} catch (error) {
+			console.error('Error fetching streaming data', error);
 		}
-		return { episodes, seasons };
 	};
 
 	const getSources = async () => {
-		if (format == 'movie') {
-			console.log(`${format}/watch-${params.movieId}`)
-			const sources = await flixhq.fetchEpisodeSources(id, `${format}/watch-${params.movieId}`);
-			return sources
-		} else {
-			const episodesId = params.movieId.split(".")[1]
-			const sources = await flixhq.fetchEpisodeSources(episodesId, `${format}watch-/${movieId}`);
-			return sources
+		try {
+			if (format == 'movie') {
+				console.log(`${format}/watch-${params.movieId}`);
+				const sources = await flixhq.fetchEpisodeSources(id, `${format}/watch-${params.movieId}`);
+				return sources;
+			} else {
+				const episodesId = params.movieId.split('.')[1];
+				const sources = await flixhq.fetchEpisodeSources(episodesId, `${format}watch-/${movieId}`);
+				return sources;
+			}
+		} catch (error) {
+			console.error('Error fetching sources', error);
 		}
 	};
 
 	return {
 		details: await fetchDetails(),
-		currentEpisodeId: params.movieId.split(".")[1],
+		currentEpisodeId: params.movieId.split('.')[1],
 		streamed: {
 			movieEpisodes: streamingData(),
 			streamingData: getSources()
 		}
 	};
 }
-
