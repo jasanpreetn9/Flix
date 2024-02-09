@@ -1,6 +1,8 @@
 import * as cheerio from 'cheerio';
 export const myflixerUrl = 'https://myflixerz.to';
 export { default as logo } from '$lib/images/logo.png';
+
+export const proxyUrl = 'https://proxy.jasanpreetn9.workers.dev/?';
 export function clickOutside(node) {
 	const handleClick = (event) => {
 		if (node && !node.contains(event.target) && !event.defaultPrevented) {

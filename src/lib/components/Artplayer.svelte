@@ -1,5 +1,6 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
+	import { proxyUrl } from '$lib/utils';
 	import Hls from 'hls.js';
 	import Artplayer from 'artplayer';
 	export let streamingData;
@@ -32,7 +33,7 @@
 			airplay: true,
 			theme: '#23ade5',
 			type: 'm3u8',
-			url: defaultSource,
+			url: proxyUrl + defaultSource,
 			customType: { m3u8: playM3u8 }
 		});
 	}

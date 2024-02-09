@@ -1,7 +1,6 @@
 <script>
 	import '$lib/global.css';
-	import { genres, logo, clickOutside } from '$lib/utils';
-	import { Modal } from '$lib/components';
+	import { logo, clickOutside } from '$lib/utils';
 	import { page } from '$app/stores';
 	$: isPadding = $page.url.pathname.includes('movie') || $page.url.pathname.includes('tv-show');
 	import { Icon, MagnifyingGlass, Bars3 } from 'svelte-hero-icons';
@@ -10,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>FLix</title>
+	<title>Flix</title>
 	<link rel="icon" href={logo} />
 </svelte:head>
 
